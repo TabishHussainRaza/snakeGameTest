@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ThreadsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">snakeGameTest</a> &gt; <a href="index.source.html" class="el_package">snake</a> &gt; <span class="el_source">ThreadsController.java</span></div><h1>ThreadsController.java</h1><pre class="source lang-java linenums">package snake;
+
+import java.util.ArrayList;
+
+//Controls all the game logic .. most important class in this project.
+public class ThreadsController extends Thread {
+
+<span class="fc" id="L8">    ArrayList&lt;ArrayList&lt;DataOfSquare&gt;&gt; Squares = new ArrayList&lt;ArrayList&lt;DataOfSquare&gt;&gt;();</span>
+    Tuple headSnakePos;
+<span class="fc" id="L10">    int sizeSnake = 3;</span>
+<span class="fc" id="L11">    long speed = 50;</span>
+    public static int directionSnake;
+
+<span class="fc" id="L14">    ArrayList&lt;Tuple&gt; positions = new ArrayList&lt;Tuple&gt;();</span>
+    Tuple foodPosition;
+
+    //Constructor of ControlleurThread 
+<span class="fc" id="L18">    ThreadsController(Tuple positionDepart) {</span>
+        //Get all the threads
+<span class="fc" id="L20">        Squares = Window.Grid;</span>
+
+<span class="fc" id="L22">        headSnakePos = new Tuple(positionDepart.x, positionDepart.y);</span>
+<span class="fc" id="L23">        directionSnake = 1;</span>
+
+        //!!! Pointer !!!!
+<span class="fc" id="L26">        Tuple headPos = new Tuple(headSnakePos.getX(), headSnakePos.getY());</span>
+<span class="fc" id="L27">        positions.add(headPos);</span>
+
+<span class="fc" id="L29">        foodPosition = new Tuple(Window.height - 1, Window.width - 1);</span>
+<span class="fc" id="L30">        spawnFood(foodPosition);</span>
+
+<span class="fc" id="L32">    }</span>
+
+    //Important part :
+    public void run() {
+        while (true) {
+<span class="fc" id="L37">            moveInterne(directionSnake);</span>
+<span class="fc" id="L38">            checkCollision();</span>
+<span class="fc" id="L39">            moveExterne();</span>
+<span class="fc" id="L40">            deleteTail();</span>
+<span class="fc" id="L41">            pauser();</span>
+        }
+    }
+
+    //delay between each move of the snake
+    private void pauser() {
+        try {
+<span class="fc" id="L48">            sleep(speed);</span>
+<span class="nc" id="L49">        } catch (InterruptedException e) {</span>
+<span class="nc" id="L50">            e.printStackTrace();</span>
+<span class="fc" id="L51">        }</span>
+<span class="fc" id="L52">    }</span>
+
+    //Checking if the snake bites itself or is eating
+    private void checkCollision() {
+<span class="fc" id="L56">        Tuple posCritique = positions.get(positions.size() - 1);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        for (int i = 0; i &lt;= positions.size() - 2; i++) {</span>
+<span class="fc bfc" id="L58" title="All 4 branches covered.">            boolean biteItself = posCritique.getX() == positions.get(i).getX() &amp;&amp; posCritique.getY() == positions.get(i).getY();</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            if (biteItself) {</span>
+<span class="nc" id="L60">                stopTheGame();</span>
+            }
+        }
+
+<span class="fc bfc" id="L64" title="All 4 branches covered.">        boolean eatingFood = posCritique.getX() == foodPosition.y &amp;&amp; posCritique.getY() == foodPosition.x;</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (eatingFood) {</span>
+<span class="fc" id="L66">            System.out.println(&quot;Yummy!&quot;);</span>
+<span class="fc" id="L67">            sizeSnake = sizeSnake + 1;</span>
+<span class="fc" id="L68">            foodPosition = getValAleaNotInSnake();</span>
+
+<span class="fc" id="L70">            spawnFood(foodPosition);</span>
+        }
+<span class="fc" id="L72">    }</span>
+
+    //Stops The Game
+    private void stopTheGame() {
+<span class="fc" id="L76">        System.out.println(&quot;COLISION! \n&quot;);</span>
+        while (true) {
+<span class="fc" id="L78">            pauser();</span>
+        }
+    }
+
+    //Put food in a position and displays it
+    private void spawnFood(Tuple foodPositionIn) {
+<span class="fc" id="L84">        Squares.get(foodPositionIn.x).get(foodPositionIn.y).lightMeUp(1);</span>
+<span class="fc" id="L85">    }</span>
+
+    //return a position not occupied by the snake
+    private Tuple getValAleaNotInSnake() {
+        Tuple p;
+<span class="fc" id="L90">        int ranX = 0 + (int) (Math.random() * 19);</span>
+<span class="fc" id="L91">        int ranY = 0 + (int) (Math.random() * 19);</span>
+<span class="fc" id="L92">        p = new Tuple(ranX, ranY);</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        for (int i = 0; i &lt;= positions.size() - 1; i++) {</span>
+<span class="pc bpc" id="L94" title="3 of 4 branches missed.">            if (p.getY() == positions.get(i).getX() &amp;&amp; p.getX() == positions.get(i).getY()) {</span>
+<span class="nc" id="L95">                ranX = 0 + (int) (Math.random() * 19);</span>
+<span class="nc" id="L96">                ranY = 0 + (int) (Math.random() * 19);</span>
+<span class="nc" id="L97">                p = new Tuple(ranX, ranY);</span>
+<span class="nc" id="L98">                i = 0;</span>
+            }
+        }
+<span class="fc" id="L101">        return p;</span>
+    }
+
+    //Moves the head of the snake and refreshes the positions in the arraylist
+    //1:right 2:left 3:top 4:bottom 0:nothing
+    private void moveInterne(int dir) {
+<span class="pc bpc" id="L107" title="1 of 5 branches missed.">        switch (dir) {</span>
+            case 4:
+<span class="fc" id="L109">                headSnakePos.ChangeData(headSnakePos.x, (headSnakePos.y + 1) % 20);</span>
+<span class="fc" id="L110">                positions.add(new Tuple(headSnakePos.x, headSnakePos.y));</span>
+<span class="fc" id="L111">                break;</span>
+            case 3:
+<span class="fc bfc" id="L113" title="All 2 branches covered.">                if (headSnakePos.y - 1 &lt; 0) {</span>
+<span class="fc" id="L114">                    headSnakePos.ChangeData(headSnakePos.x, 19);</span>
+                } else {
+<span class="fc" id="L116">                    headSnakePos.ChangeData(headSnakePos.x, Math.abs(headSnakePos.y - 1) % 20);</span>
+                }
+<span class="fc" id="L118">                positions.add(new Tuple(headSnakePos.x, headSnakePos.y));</span>
+<span class="fc" id="L119">                break;</span>
+            case 2:
+<span class="fc bfc" id="L121" title="All 2 branches covered.">                if (headSnakePos.x - 1 &lt; 0) {</span>
+<span class="fc" id="L122">                    headSnakePos.ChangeData(19, headSnakePos.y);</span>
+                } else {
+<span class="fc" id="L124">                    headSnakePos.ChangeData(Math.abs(headSnakePos.x - 1) % 20, headSnakePos.y);</span>
+                }
+<span class="fc" id="L126">                positions.add(new Tuple(headSnakePos.x, headSnakePos.y));</span>
+
+<span class="fc" id="L128">                break;</span>
+            case 1:
+<span class="fc" id="L130">                headSnakePos.ChangeData(Math.abs(headSnakePos.x + 1) % 20, headSnakePos.y);</span>
+<span class="fc" id="L131">                positions.add(new Tuple(headSnakePos.x, headSnakePos.y));</span>
+                break;
+        }
+<span class="fc" id="L134">    }</span>
+
+    //Refresh the squares that needs to be 
+    private void moveExterne() {
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        for (Tuple t : positions) {</span>
+<span class="fc" id="L139">            int y = t.getX();</span>
+<span class="fc" id="L140">            int x = t.getY();</span>
+<span class="fc" id="L141">            Squares.get(x).get(y).lightMeUp(0);</span>
+
+<span class="fc" id="L143">        }</span>
+<span class="fc" id="L144">    }</span>
+
+    //Refreshes the tail of the snake, by removing the superfluous data in positions arraylist
+    //and refreshing the display of the things that is removed
+    private void deleteTail() {
+<span class="fc" id="L149">        int cmpt = sizeSnake;</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        for (int i = positions.size() - 1; i &gt;= 0; i--) {</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">            if (cmpt == 0) {</span>
+<span class="fc" id="L152">                Tuple t = positions.get(i);</span>
+<span class="fc" id="L153">                Squares.get(t.y).get(t.x).lightMeUp(2);</span>
+<span class="fc" id="L154">            } else {</span>
+<span class="fc" id="L155">                cmpt--;</span>
+            }
+        }
+<span class="fc" id="L158">        cmpt = sizeSnake;</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        for (int i = positions.size() - 1; i &gt;= 0; i--) {</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">            if (cmpt == 0) {</span>
+<span class="fc" id="L161">                positions.remove(i);</span>
+            } else {
+<span class="fc" id="L163">                cmpt--;</span>
+            }
+        }
+<span class="fc" id="L166">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
