@@ -38,10 +38,10 @@ public class TupleTest {
     @Test
     public void testChangeData() {
         System.out.println("ChangeData");
-        Tuple instance = new Tuple(1, 2);
+        Tuple tupleInstance = new Tuple(1, 2);
         int x = 0;
         int y = 0;
-        instance.ChangeData(x, y);
+        tupleInstance.ChangeData(x, y);
         // TODO review the generated test code and remove the default call to fail.
 
     }
@@ -52,9 +52,9 @@ public class TupleTest {
     @Test
     public void testGetX() {
         System.out.println("getX");
-        Tuple instance = new Tuple(1, 2);
+        Tuple tupleInstance = new Tuple(1, 2);
         int expResult = 1;
-        int result = instance.getX();
+        int result = tupleInstance.getX();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
 
@@ -66,21 +66,25 @@ public class TupleTest {
     @Test
     public void testGetY() {
         System.out.println("getY");
-        Tuple instance = new Tuple(1, 2);
+        Tuple tupleInstance = new Tuple(1, 2);
         int expResult = 2;
-        int result = instance.getY();
+        int result = tupleInstance.getY();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
 
         System.out.println("Success!");
 
     }
+
+    /**
+     * Test of getXf method, of class Tuple.
+     */
     @Test
     public void testGetXf() {
         System.out.println("getXf");
-        Tuple instance = new Tuple(1, 2);
+        Tuple tupleInstance = new Tuple(1, 2);
         int expResult = 0;
-        int result = instance.getXf();
+        int result = tupleInstance.getXf();
         assertEquals(expResult, result);
     }
 
@@ -90,9 +94,9 @@ public class TupleTest {
     @Test
     public void testGetYf() {
         System.out.println("getYf");
-        Tuple instance = new Tuple(1, 2);
+        Tuple tupleInstance = new Tuple(1, 2);
         int expResult = 0;
-        int result = instance.getYf();
+        int result = tupleInstance.getYf();
         assertEquals(expResult, result);
     }
 

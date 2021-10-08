@@ -34,7 +34,7 @@ public class WindowTest {
     @Test
     public void testSomeMethod() {
         
-        Window instance = new Window();
+        Window windowInstance = new Window();
         
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");

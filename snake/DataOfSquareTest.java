@@ -40,21 +40,26 @@ public class DataOfSquareTest {
     public void testLightMeUp() {
         System.out.println("lightMeUp with three colors");
 
+        /**
+         * The following lines shows that a list of colors has been created.
+         * Three colors are added to this list and using these three colors, the
+         * DataofSquare Class is tested.
+         */
         ArrayList<Color> C = new ArrayList<Color>();
 
         C.add(Color.darkGray);//0
         C.add(Color.BLUE);//1
         C.add(Color.white);//2
 
-        DataOfSquare instance = new DataOfSquare(C.indexOf(Color.darkGray));
-        instance.lightMeUp(0);
+        DataOfSquare dataOfSquareInstance = new DataOfSquare(C.indexOf(Color.darkGray));
+        dataOfSquareInstance.lightMeUp(0);
 
-        instance = new DataOfSquare(C.indexOf(Color.BLUE));
-        instance.lightMeUp(1);
+        dataOfSquareInstance = new DataOfSquare(C.indexOf(Color.BLUE));
+        dataOfSquareInstance.lightMeUp(1);
 
-        instance = new DataOfSquare(C.indexOf(Color.white));
-        instance.lightMeUp(2);
-        
+        dataOfSquareInstance = new DataOfSquare(C.indexOf(Color.white));
+        dataOfSquareInstance.lightMeUp(2);
+
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }

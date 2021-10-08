@@ -12,24 +12,24 @@ import org.junit.Test;
  * @author Tabish Hussain Raza
  */
 public class ThreadsControllerTest {
-    
+
     public ThreadsControllerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
-        
+
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
         Window instance = new Window();
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -39,9 +39,9 @@ public class ThreadsControllerTest {
      */
     @Test
     public void testRun() {
-        
-        Tuple myTuple = new Tuple(10,10);
-        
+
+        Tuple myTuple = new Tuple(10, 10);
+
         //System.out.println("run");
         //ThreadsController instance = new ThreadsController(myTuple);
         //instance.run();
@@ -55,29 +55,24 @@ public class ThreadsControllerTest {
     @Test
     public void testMoveInterne() {
 
-        ArrayList<ArrayList<DataOfSquare>> Squares= new ArrayList<ArrayList<DataOfSquare>>();
-	Tuple headSnakePos;
-	int sizeSnake=3;
-	long speed = 50;
-	int directionSnake ;
+        ArrayList<ArrayList<DataOfSquare>> Squares = new ArrayList<ArrayList<DataOfSquare>>();
+        Tuple headSnakePos;
+        int sizeSnake = 3;
+        long speed = 50;
+        int directionSnake;
 
-	ArrayList<Tuple> positions = new ArrayList<Tuple>();
-	Tuple foodPosition;
-        
-        
+        ArrayList<Tuple> positions = new ArrayList<Tuple>();
+        Tuple foodPosition;
 
-        Tuple myTuple = new Tuple(10,10);       
+        Tuple myTuple = new Tuple(10, 10);
         ThreadsController instance = new ThreadsController(myTuple);
-        
+
         instance.start();
-        
+
         new KeyboardListenerTest().testKeyPressed();
-        
-        
-        
-        
+
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-    
+
 }
