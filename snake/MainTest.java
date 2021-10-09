@@ -1,34 +1,47 @@
 package snake;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
  * @author Tabish Hussain Raza
  */
 public class MainTest {
-    
-    public MainTest() {
+
+   /**
+     * The following method executes before all the test methods.
+     */
+    @BeforeAll
+    public static void setUpAll() {
+        System.out.println("This should be printed before all the test cases");
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
+
+    /**
+     * The following method executes before each test methods in the class.
+     */
+    @BeforeEach
     public void setUp() {
+        System.out.println("This should be printed before each test case");
     }
-    
-    @After
-    public void tearDown() {
+
+    /**
+     * The following method executes after each test methods in the class.
+     */
+    @AfterEach
+    public void afterEach() {
+        System.out.println("This should be printed after each test case");
+    }
+
+    /**
+     * The following method executes after all the test methods.
+     */
+    @AfterAll
+    public static void tearDown() {
+        System.out.println("This should be printed at the end after all the test cases");
     }
 
     /**
@@ -43,5 +56,5 @@ public class MainTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-    
+
 }
