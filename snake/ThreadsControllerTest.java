@@ -42,9 +42,10 @@ public class ThreadsControllerTest {
 
         Tuple myTuple = new Tuple(10, 10);
 
-        //System.out.println("run");
-        //ThreadsController instance = new ThreadsController(myTuple);
-        //instance.run();
+        System.out.println("run");
+        ThreadsController instance = new ThreadsController(myTuple);
+        instance.start();
+        instance.interrupt();
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
