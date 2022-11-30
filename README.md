@@ -1,7 +1,7 @@
 # snakeGameTest
 Junit Testing a given Snake Game in Java. 
 
-This is a Assignment utilizes JUnit and JaCoCo to test the give snake game
+This is a Assignment that utilizes JUnit and JaCoCo to test the given snake game.
 
 All Java files in the Test folder have been tested.
 
